@@ -24,7 +24,7 @@
 
         <div class="space-y-4"> 
             <div class="bg-gray-200 py-3 px-6 rounded-lg text-lg shadow-inner">Nama: {{ $nama }}</div> 
-            <div class="bg-gray-200 py-3 px-6 rounded-lg text-lg shadow-inner">Kelas: {{ $kelas }}</div> 
+            <div class="bg-gray-200 py-3 px-6 rounded-lg text-lg shadow-inner">Kelas: {{ $nama_kelas ?? 'Kelas tidak ditemukan'}}</div> 
             <div class="bg-gray-200 py-3 px-6 rounded-lg text-lg shadow-inner">NPM: {{ $npm }}</div> 
         </div> 
     </div> 
