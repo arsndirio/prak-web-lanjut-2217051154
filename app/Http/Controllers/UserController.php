@@ -35,15 +35,39 @@ class UserController extends Controller
         ]); 
         }
 
+        
     public function store(Request $request)
         {
-            $this->userModel->create([ 
-                'nama' => $request->input('nama'), 
-                'npm' => $request->input('npm'), 
-                'kelas_id' => $request->input('kelas_id'), 
-                ]); 
-
-                return redirect()->to('/user'); 
+        // Validasi input
+        $request->validate([
+        'nama' => 'required|string|max:255',
+        'npm' => 'required|string|max:255',
+        'kelas_id' => 'required|integer',
+        'foto' =>
+        'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', //
+        //Validasi untuk foto
+        ]);
+        // Meng-handle upload foto
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $fotoName = time() . '_' . $foto->getClientOriginalName(); // Menambahkan timestamp agar unik
+            $foto->move(public_path('upload/img'), $fotoName); // Memindahkan file ke public/upload/img
+            $fotoPath = 'upload/img/' . $fotoName; // Menyimpan path relatif dari foto yang diupload
+        } else {
+            // Jika tidak ada foto yang di-upload, gunakan foto default
+            $fotoPath = 'assets/img/IMG-20241004-WA0009.jpg';
+        }
+        
+        
+        // Menyimpan data ke database termasuk path foto
+        $this->userModel->create([
+        'nama' => $request->input('nama'),
+        'npm' => $request->input('npm'),
+        'kelas_id' => $request->input('kelas_id'),
+        'foto' => $fotoPath, // Menyimpan path foto
+        ]);
+        return redirect()->to('/users')->with('success', 'User
+        berhasil ditambahkan');
         }
 
     public function index() 
@@ -54,4 +78,16 @@ class UserController extends Controller
     // Mengirim data users ke view
     return view('list_user', ['users' => $users]); 
         }
+
+    
+    
+    public function show ($id) {
+        $user = $this->userModel->getUser($id);
+        $data = [
+            'title' => 'Profile',
+            'user' => $user,
+    ];
+    
+        return view('profile', $data);
+    }
 }

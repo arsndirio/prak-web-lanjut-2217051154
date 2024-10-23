@@ -3,6 +3,12 @@
 @section('content')
 <div class="min-h-screen flex items-center justify-center bg-gray-100">
     <div class="w-full max-w-6xl px-4">
+        <div class="mb-4">
+            <!--Tambah Pengguna Baru -->
+            <a href="{{ route('user.create') }}" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105">
+                Tambah Pengguna Baru
+            </a>
+        </div>
         <div class="bg-white shadow-md rounded-lg overflow-x-auto overflow-y-auto max-h-96">
             <table class="min-w-full table-auto">
                 <thead>
@@ -16,18 +22,26 @@
                 </thead>
                 <tbody>
                     @foreach ($users as $user)
-                    <tr class="border-b hover:bg-gray-100">
+                    <tr class="border-b hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105 active:bg-gray-200">
                         <td class="py-2 px-4 text-center">{{ $user->id }}</td>
                         <td class="py-2 px-4">{{ $user->nama }}</td>
                         <td class="py-2 px-4">{{ $user->npm }}</td>
                         <td class="py-2 px-4">{{ $user->kelas->nama_kelas }}</td>
                         <td class="py-2 px-4 text-center">
-                            <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
-                                Edit
-                            </button>
-                            <button class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
-                                Hapus
-                            </button>
+                            <div class="flex justify-center space-x-2">
+                                <!-- Tombol Edit -->
+                                <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105">
+                                    Edit
+                                </button>
+                                <!-- Tombol Hapus -->
+                                <button class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 ease-in-out transform hover:scale-105">
+                                    Hapus
+                                </button>
+                                <!-- Tombol Detail -->
+                                <a href="{{ route('users.show', $user->id) }}" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300 ease-in-out transform hover:scale-105">
+                                    Detail
+                                </a>
+                            </div>
                         </td>
                     </tr>
                     @endforeach

@@ -3,7 +3,8 @@
 @section('content')
     <div class="flex items-center justify-center h-screen bg-gray-100">
         <div class="bg-white p-6 rounded-lg shadow-lg">
-            <form action="{{ route('user.store') }}" method="POST">
+            <!-- Tambahkan enctype multipart/form-data -->
+            <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-4">
@@ -30,6 +31,15 @@
                         @endforeach
                     </select>
                     @error('kelas_id')
+                        <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Tambahkan input file untuk upload foto -->
+                <div class="mb-4">
+                    <input type="file" id="foto" name="foto" class="border border-gray-300 rounded-lg w-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <label for="foto" class="block text-gray-700 font-bold mb-2">Foto:</label>
+                    @error('foto')
                         <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                     @enderror
                 </div>
