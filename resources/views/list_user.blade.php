@@ -30,16 +30,23 @@
                         <td class="py-2 px-4 text-center">
                             <div class="flex justify-center space-x-2">
                                 <!-- Tombol Edit -->
-                                <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105">
+                                <a href="{{ route('user.edit', $user['id']) }}" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105">
                                     Edit
-                                </button>
+                                </a>
+
                                 <!-- Tombol Hapus -->
-                                <button class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 ease-in-out transform hover:scale-105">
-                                    Hapus
-                                </button>
+                                <form action="{{ route('user.destroy', $user->id) }}" method="POST" style="display:inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 ease-in-out transform hover:scale-105"
+                                        onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?')">
+                                        Hapus
+                                    </button>
+                                </form>
+
                                 <!-- Tombol Detail -->
-                                <a href="{{ route('users.show', $user->id) }}" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300 ease-in-out transform hover:scale-105">
-                                    Detail
+                                <a href="{{ route('users.show', $user['id']) }}" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300 ease-in-out transform hover:scale-105">
+                                    View
                                 </a>
                             </div>
                         </td>
